@@ -1,5 +1,5 @@
 # Minecraft-aternos-24-7-afk-bot-
-const mineflayer = require('mineflayer');
+  const mineflayer = require('mineflayer');
 
 function createBot() {
     const bot = mineflayer.createBot({
@@ -9,23 +9,17 @@ function createBot() {
     });
 
     bot.on('spawn', () => {
-        console.log('Wspeed21123_ has successfully joined the server and is now active!');
+        console.log('Wspeed21123_ has joined successfully and is safe from movement kicks!');
         
-        // Anti-AFK loop running every 60 seconds (1 minute)
+        // Safe Anti-AFK loop every 60 seconds (Only looks around and swings arm)
         setInterval(() => {
+            // Gently change head orientation randomly
             const yaw = Math.random() * Math.PI - (Math.PI / 2);
-            bot.look(yaw, 0);
+            const pitch = (Math.random() * 0.5) - 0.25;
+            bot.look(yaw, pitch, true);
 
-            bot.setControlState('forward', true);
-            setTimeout(() => {
-                bot.setControlState('forward', false);
-                bot.setControlState('back', true);
-                setTimeout(() => {
-                    bot.setControlState('back', false);
-                    bot.swingArm('right');
-                }, 1500);
-            }, 1500);
-
+            // Swing hand to show server it's active
+            bot.swingArm('right');
         }, 60000);
     });
 
@@ -40,3 +34,4 @@ function createBot() {
 }
 
 createBot();
+
